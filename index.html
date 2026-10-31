@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apsara | Exclusive Spin to Win</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts for Elegant Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Canvas Confetti Library for Celebratory Effect -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        /* Custom Animations for ambient background blobs */
+        @keyframes blob {
+            0% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+            100% { transform: translate(0px, 0px) scale(1); }
+        }
+        .animate-blob {
+            animation: blob 8s infinite ease-in-out;
+        }
+        .animation-delay-2000 {
+            animation-delay: 2s;
+        }
+        .animation-delay-4000 {
+            animation-delay: 4s;
+        }
+        
+        /* Ensures body scroll is clean */
+        body {
+            overscroll-behavior-y: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-[#2a0410] to-[#0f0005] font-sans text-white overflow-x-hidden selection:bg-[#D4AF37] selection:text-[#2a0410]">
+
+    <!-- Decorative ambient background glowing elements -->
+    <div class="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+        <div class="absolute top-[-10%] left-[-10%] w-96 h-96 bg-rose-900 rounded-full mix-blend-screen filter blur-[100px] opacity-40 animate-blob"></div>
+        <div class="absolute top-[20%] right-[-10%] w-72 h-72 bg-yellow-700 rounded-full mix-blend-screen filter blur-[100px] opacity-30 animate-blob animation-delay-2000"></div>
+        <div class="absolute bottom-[-10%] left-[20%] w-80 h-80 bg-rose-800 rounded-full mix-blend-screen filter blur-[100px] opacity-40 animate-blob animation-delay-4000"></div>
+    </div>
+
+    <div class="relative z-10 flex flex-col items-center justify-center min-h-screen py-12 px-4 w-full">
+        
+        <!-- Header & Logo -->
+        <header class="text-center mb-10 md:mb-14">
+            <h1 class="text-7xl md:text-8xl font-serif italic text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#FFF3CA] to-[#D4AF37] drop-shadow-sm mb-2" style="font-family: 'Playfair Display', serif;">
+                Apsara
+            </h1>
+            <div class="h-[1px] w-24 bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mx-auto mb-3"></div>
+            <p class="text-[#e8dcc4] tracking-[0.35em] uppercase text-xs md:text-sm font-light">Exquisite Fashion</p>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="w-full max-w-6xl flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-24">
+            
+            <!-- Left Side: Copy/Instructions -->
+            <div class="text-center lg:text-left max-w-lg">
+                <h2 class="text-4xl md:text-5xl font-serif text-white mb-6 leading-tight drop-shadow-md" style="font-family: 'Playfair Display', serif;">
+                    Spin & Win<br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#F9F295] to-[#B8860B]">Your Exclusive Reward</span>
+                </h2>
+                <p class="text-gray-300 text-lg mb-10 font-light leading-relaxed">
+                    Step into elegance with Apsara. Spin the wheel to unlock special discounts on our premium apparel collection. Will fortune favor your style today?
+                </p>
+                
+                <!-- Desktop Spin Button (Hidden on Mobile) -->
+                <button onclick="spinWheel()" id="spin-btn-desk" class="hidden lg:inline-flex relative overflow-hidden group bg-gradient-to-r from-[#b38b22] via-[#D4AF37] to-[#b38b22] text-[#2a0410] font-bold text-xl py-4 px-12 rounded-full shadow-[0_0_20px_rgba(212,175,55,0.4)] hover:shadow-[0_0_35px_rgba(212,175,55,0.8)] transition-all duration-300 uppercase tracking-widest hover:-translate-y-1 items-center justify-center">
+                    <span class="relative z-10">Spin To Win</span>
+                </button>
+            </div>
+
+            <!-- Right Side: Wheel Container -->
+            <div class="relative flex flex-col items-center">
+                
+                <!-- Elegant Pointer -->
+                <div class="absolute top-0 z-20 -mt-8 md:-mt-10 drop-shadow-[0_4px_6px_rgba(0,0,0,0.6)]">
+                    <svg width="50" height="65" viewBox="0 0 40 50">
+                        <path d="M20 50 L0 0 L40 0 Z" fill="url(#goldGradient)" stroke="#FFFFFF" stroke-width="2" stroke-linejoin="round"/>
+                        <defs>
+                            <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#F9F295;stop-opacity:1" />
+                                <stop offset="50%" style="stop-color:#D4AF37;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#B8860B;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+
+                <!-- Canvas Wrapper with premium styling -->
+                <div class="relative p-2 md:p-3 rounded-full bg-gradient-to-br from-[#F9F295] via-[#D4AF37] to-[#7A5C0E] shadow-[0_0_50px_rgba(212,175,55,0.25)]">
+                    <div class="rounded-full overflow-hidden bg-[#2a0410] border-8 border-[#2a0410]">
+                        <!-- Rendered at high resolution (1000x1000) and scaled down for crispness -->
+                        <canvas id="wheel" width="1000" height="1000" class="w-full max-w-[320px] sm:max-w-[400px] md:max-w-[480px] origin-center transition-transform duration-[5000ms] ease-[cubic-bezier(0.25,0.1,0.15,1)] block"></canvas>
+                    </div>
+                </div>
+
+                <!-- Mobile Spin Button (Visible only on Mobile) -->
+                <button onclick="spinWheel()" id="spin-btn-mob" class="mt-12 lg:hidden w-full max-w-[280px] relative overflow-hidden group bg-gradient-to-r from-[#b38b22] via-[#D4AF37] to-[#b38b22] text-[#2a0410] font-bold text-xl py-4 px-8 rounded-full shadow-[0_0_20px_rgba(212,175,55,0.4)] transition-all duration-300 uppercase tracking-widest active:scale-95 flex items-center justify-center">
+                    <span class="relative z-10">Spin To Win</span>
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <!-- Beautiful Winning Modal -->
+    <div id="modal" class="fixed inset-0 bg-black/85 backdrop-blur-md hidden z-50 justify-center items-center opacity-0 transition-opacity duration-500">
+        <div id="modal-content" class="bg-gradient-to-b from-[#fffbf0] to-[#f4e6ce] text-[#2a0410] p-10 md:p-14 rounded-3xl shadow-[0_0_80px_rgba(212,175,55,0.5)] text-center max-w-md w-full mx-4 border border-[#D4AF37] relative scale-90 transition-transform duration-500">
+            <!-- Close icon -->
+            <button onclick="closeModal()" class="absolute top-5 right-5 text-[#8c6b1c] hover:text-[#2a0410] transition-colors p-2">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            
+            <!-- Gift Icon -->
+            <div class="mb-6 flex justify-center">
+                <div class="p-4 bg-[#D4AF37]/10 rounded-full">
+                    <svg class="w-14 h-14 text-[#D4AF37]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"></path></svg>
+                </div>
+            </div>
+            
+            <h2 class="text-4xl font-serif text-[#b38b22] mb-2" style="font-family: 'Playfair Display', serif;">Congratulations!</h2>
+            <p class="text-lg text-gray-700 mb-6 font-light">You've unlocked a fabulous offer at Apsara.</p>
+            
+            <div class="py-5 border-y border-[#D4AF37]/30 mb-8 bg-[#D4AF37]/5 rounded-lg">
+                <p id="prize-text" class="text-3xl md:text-4xl font-bold text-[#4a0419] tracking-wide"></p>
+            </div>
+            
+            <button onclick="closeModal()" class="bg-gradient-to-r from-[#4a0419] to-[#2a0410] hover:from-[#2a0410] hover:to-[#1a0007] text-[#D4AF37] font-bold py-4 px-8 rounded-full shadow-lg transition-all w-full uppercase tracking-widest text-sm hover:shadow-[0_0_20px_rgba(74,4,25,0.6)]">
+                Claim Your Offer
+            </button>
+        </div>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Configuration and Weights Setup
+        const options = [
+            { text: "100 Rs Off", weight: 60, color: "#fdfbf7", textColor: "#4a0419" },    // Cream background, Maroon text
+            { text: "200 Rs Off", weight: 75, color: "#e8c37d", textColor: "#4a0419" },    // Gold background, Maroon text
+            { text: "300 Rs Off", weight: 10, color: "#fdfbf7", textColor: "#4a0419" },    // Cream background
+            { text: "400 Rs Off", weight: 0, color: "#e8c37d", textColor: "#4a0419" },     // Gold background
+            { text: "Free", weight: 0, color: "#fdfbf7", textColor: "#4a0419" },           // Cream background
+            { text: "Buy 1 Get 2\nFree", weight: 0, color: "#e8c37d", textColor: "#4a0419" } // Gold background
+        ];
+
+        const canvas = document.getElementById('wheel');
+        const ctx = canvas.getContext('2d');
+        const numSlices = options.length;
+        const sliceAngle = (2 * Math.PI) / numSlices;
+        
+        let currentRotation = 0;
+        let isSpinning = false;
+
+        // Draw the Wheel Initialization
+        function drawWheel() {
+            const cx = canvas.width / 2;
+            const cy = canvas.height / 2;
+            const r = cx - 20; // Allow space for outer stroke
+
+            // Clear canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw Slices
+            for (let i = 0; i < numSlices; i++) {
+                // -Math.PI / 2 offsets drawing to start visually at top (12 o'clock)
+                const startAngle = (i * sliceAngle) - Math.PI / 2;
+                const endAngle = startAngle + sliceAngle;
+                
+                ctx.beginPath();
+                ctx.moveTo(cx, cy);
+                ctx.arc(cx, cy, r, startAngle, endAngle);
+                ctx.closePath();
+                
+                // Fill Slice
+                ctx.fillStyle = options[i].color;
+                ctx.fill();
+                
+                // Slice Border
+                ctx.lineWidth = 4;
+                ctx.strokeStyle = "#c59f48"; 
+                ctx.stroke();
+
+                // Draw Text inside slice
+                ctx.save();
+                ctx.translate(cx, cy);
+                // Rotate canvas to the middle of current slice
+                ctx.rotate(startAngle + sliceAngle / 2);
+                ctx.textAlign = "right";
+                ctx.textBaseline = "middle";
+                ctx.fillStyle = options[i].textColor;
+                ctx.font = "bold 52px 'Inter', sans-serif";
+                
+                const textDistance = r - 55;
+                
+                // Handle multi-line text mapping
+                if (options[i].text.includes('\n')) {
+                    const lines = options[i].text.split('\n');
+                    ctx.fillText(lines[0], textDistance, -25);
+                    ctx.fillText(lines[1], textDistance, 35);
+                } else {
+                    ctx.fillText(options[i].text, textDistance, 0);
+                }
+                
+                ctx.restore();
+            }
+            
+            // Draw Outer Golden Ring
+            ctx.beginPath();
+            ctx.arc(cx, cy, r, 0, 2 * Math.PI);
+            ctx.lineWidth = 18;
+            ctx.strokeStyle = "#D4AF37";
+            ctx.stroke();
+
+            // Draw Center Decorative Circle (Maroon)
+            ctx.beginPath();
+            ctx.arc(cx, cy, 70, 0, 2 * Math.PI);
+            ctx.fillStyle = "#2a0410";
+            ctx.fill();
+            ctx.lineWidth = 10;
+            ctx.strokeStyle = "#D4AF37";
+            ctx.stroke();
+            
+            // Draw Inner Center Dot (Gold)
+            ctx.beginPath();
+            ctx.arc(cx, cy, 25, 0, 2 * Math.PI);
+            ctx.fillStyle = "#D4AF37";
+            ctx.fill();
+        }
+
+        // Spin Logic handling weighted probability
+        function spinWheel() {
+            if (isSpinning) return;
+            isSpinning = true;
+            
+            // UI Button state update
+            document.getElementById('spin-btn-desk').classList.add('opacity-50', 'cursor-not-allowed');
+            document.getElementById('spin-btn-mob').classList.add('opacity-50', 'cursor-not-allowed');
+            
+            // 1. Calculate Weighted Random Winner
+            const totalWeight = options.reduce((sum, opt) => sum + opt.weight, 0);
+            const rand = Math.random() * totalWeight;
+            let sum = 0;
+            let winnerIndex = 0;
+            
+            for (let i = 0; i < options.length; i++) {
+                sum += options[i].weight;
+                if (rand <= sum) {
+                    winnerIndex = i;
+                    break;
+                }
+            }
+
+            // 2. Math for stopping exactly on the winning slice
+            const sliceDegrees = 360 / numSlices;
+            
+            // Calculate center angle of the selected slice relative to start (0 index)
+            const centerAngle = (winnerIndex * sliceDegrees) + (sliceDegrees / 2);
+            
+            // Target angle relative to pointer (at 12 o'clock top)
+            // Adding slight random variance so pointer doesn't always hit exactly dead-center
+            const variance = (Math.random() * (sliceDegrees - 15)) - ((sliceDegrees - 15) / 2);
+            const targetAngle = 360 - centerAngle + variance;
+            
+            // Add minimum rotations for visual spin effect (e.g. 5 full spins)
+            const spins = 5 * 360; 
+            
+            // Determine absolute rotation sum maintaining direction
+            currentRotation = Math.ceil(currentRotation / 360) * 360 + spins + targetAngle;
+            
+            // 3. Apply CSS Transition
+            canvas.style.transform = `rotate(${currentRotation}deg)`;
+            
+            // 4. Trigger Modal after spin completes
+            setTimeout(() => {
+                isSpinning = false;
+                document.getElementById('spin-btn-desk').classList.remove('opacity-50', 'cursor-not-allowed');
+                document.getElementById('spin-btn-mob').classList.remove('opacity-50', 'cursor-not-allowed');
+                
+                showModal(options[winnerIndex].text);
+            }, 5000); // 5000ms corresponds to transition-transform duration
+        }
+
+        // Display Modal with Confetti Celebration
+        function showModal(prizeText) {
+            // Replace newlines with spaces for modal display
+            document.getElementById('prize-text').innerText = prizeText.replace('\n', ' ');
+            
+            const modal = document.getElementById('modal');
+            const modalContent = document.getElementById('modal-content');
+            
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            
+            // Force browser reflow to allow transition sequence
+            void modal.offsetWidth;
+            
+            modal.classList.add('opacity-100');
+            modalContent.classList.replace('scale-90', 'scale-100');
+            
+            triggerConfetti();
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            const modalContent = document.getElementById('modal-content');
+            
+            modal.classList.remove('opacity-100');
+            modalContent.classList.replace('scale-100', 'scale-90');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }, 500); // Matches duration-500
+        }
+
+        // Particle Confetti Settings
+        function triggerConfetti() {
+            const duration = 4000;
+            const animationEnd = Date.now() + duration;
+            const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 60, colors: ['#D4AF37', '#800000', '#FFFFFF', '#f3e5ab'] };
+
+            function randomInRange(min, max) {
+                return Math.random() * (max - min) + min;
+            }
+
+            const interval = setInterval(function() {
+                const timeLeft = animationEnd - Date.now();
+
+                if (timeLeft <= 0) {
+                    return clearInterval(interval);
+                }
+
+                const particleCount = 40 * (timeLeft / duration);
+                
+                // Shoot from left and right edges
+                confetti(Object.assign({}, defaults, { 
+                    particleCount,
+                    origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 }
+                }));
+                confetti(Object.assign({}, defaults, { 
+                    particleCount,
+                    origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 }
+                }));
+            }, 250);
+        }
+
+        // Execute render on load
+        window.onload = drawWheel;
+
+    </script>
+</body>
+</html>
